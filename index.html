@@ -76,6 +76,18 @@ header{grid-column:1/3;border-bottom:1px solid var(--line);background:#0d0e12;di
 .edge-label .edge-color-dots{display:inline-flex;gap:3px;margin-right:4px;vertical-align:middle}.edge-label .edge-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
 .node .kind-label{font-size:8px;text-transform:uppercase;letter-spacing:.11em;color:#777d8b;margin-bottom:5px}
 @media(max-width:600px){.person.node{width:210px;min-height:118px;padding:13px}.card.node{width:154px;min-height:72px}.card.node .meta{-webkit-line-clamp:3}.edge-label{max-width:145px;font-size:8px;padding:3px 5px}}
+
+/* Investigation board v4: character hubs vs scene/evidence cards */
+.person.node{background:#fff;color:#15171d;border:1px solid #d9dce3;border-left:5px solid var(--node-grad);box-shadow:0 14px 34px rgba(0,0,0,.38);z-index:6}
+.person.node .title{color:#101116}.person.node .meta{color:#555b68}.person.node .kind-label{color:#7a808c}.person.node .connection-count{background:#f1f3f7;border-color:#d7dae2;color:#17191f}.person.node .tag{background:#eef0f4;color:#444a56}
+.person.node .tag.red{background:#ffe7e9;color:#9f2430}.person.node .tag.blue{background:#e7efff;color:#24519c}.person.node .tag.green{background:#e2f7ec;color:#176a43}.person.node .tag.purple{background:#f0e7ff;color:#68409a}.person.node .tag.orange{background:#fff0e4;color:#92501e}
+.card.node{background:#11151b;border:1px solid #303743;box-shadow:0 7px 20px rgba(0,0,0,.22);z-index:3}
+.card.node::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:11px 0 0 11px;background:var(--node-grad)}
+.card.node .title{color:#f2f4f8}.card.node .meta{color:#aeb4c0}.card.node .kind-label{color:#697180}
+.edge-label{position:absolute;transform:translate(-50%,-50%);z-index:5;max-width:220px;padding:4px 7px;border:1px solid #2e333d;background:#0c0f14e8;color:#cfd3dc;border-radius:7px;font-size:9px;line-height:1.25;pointer-events:none;white-space:normal;text-align:center}
+.edge-color-dots{display:inline-flex;gap:3px;margin-right:4px;vertical-align:middle}.edge-dot{display:inline-block;width:7px;height:7px;border-radius:50%;box-shadow:0 0 0 1px #ffffff33}
+.edge.color-coded{background:var(--edge-grad)!important}.edge.dashed.color-coded{border-top-color:var(--edge-accent)}.edge.dotted.color-coded{border-top-color:var(--edge-accent)}
+
 </style></head>
 <body>
 <div class="app">
@@ -159,7 +171,41 @@ const data={
 {id:'BLUECUP',t:'🔵 Taza azul de Jane',type:'symbol',x:1480,y:720,meta:'T3E23 · elemento azul observado alrededor de escena de Bertram',tags:['azul'],cls:'symbol'},
 {id:'GREENFINAL',t:'🟢 Verde dominante en cierre',type:'symbol',x:1500,y:840,meta:'T3E24 · verde muy presente durante confrontación final',tags:['verde'],cls:'symbol'},
 {id:'BLUESTAY',t:'🔵 Persona azul que se queda',type:'symbol',x:1270,y:900,meta:'T3E24 · mientras otros corren, una persona en azul permanece cubriéndose',tags:['azul','observación'],cls:'symbol'},
-{id:'REDCART',t:'☕ Carrito rojo',type:'symbol',x:1390,y:930,meta:'T3E24 · “pop” rojo dentro del cierre dominado por verde',tags:['rojo','observación'],cls:'symbol'}
+{id:'REDCART',t:'☕ Carrito rojo',type:'symbol',x:1390,y:930,meta:'T3E24 · “pop” rojo dentro del cierre dominado por verde',tags:['rojo','observación'],cls:'symbol'},
+{"id":"S1PILOT","t":"🎬 T1E1 · Pilot","type":"episode","x":40,"y":20,"meta":"Jane provoca públicamente a RJ; RJ mata a su familia y deja el smiley; Jane queda literalmente bajo el símbolo.","tags":["origen","smiley","azul/rojo"],"cls":"card"},
+{"id":"S1JARED","t":"🎬 T1E11 · Jared Renfrew","type":"episode","x":40,"y":190,"meta":"Jared promete información sobre RJ; RJ llega antes y Jared muere con ‘He is ma’ escrito en sangre.","tags":["RJ","sin verde"],"cls":"card"},
+{"id":"S1FOOT","t":"🎬 T1E23 · Red John’s Footsteps","type":"episode","x":40,"y":360,"meta":"Rosalind informa; Dumar/Harry Hardy queda ligado a RJ; Jane mata a Hardy; RJ escapa y aparece el smiley en el cielo.","tags":["RJ","instrumentos"],"cls":"card"},
+{"id":"S2BOSCO","t":"🎬 T2E1 · Redemption","type":"episode","x":40,"y":530,"meta":"Minelli aparta a Jane y Lisbon de la investigación de RJ; Bosco toma el caso.","tags":["Minelli","control institucional"],"cls":"card"},
+{"id":"S2REBECCA","t":"🎬 T2E8 · His Red Right Hand","type":"episode","x":40,"y":700,"meta":"Rebecca Anderson, secretaria de Bosco, participa en la operación que destruye al equipo; desaparecen pruebas y luego ella es eliminada.","tags":["verde","RJ","Rebecca"],"cls":"card"},
+{"id":"S2KRIS22","t":"🎬 T2E22 · Red Letter","type":"episode","x":300,"y":1450,"meta":"Kristina vuelve, ayuda en el caso de Hector Brava y fortalece su vínculo con Jane; aparece cream/blanco + negro + accesorio verde.","tags":["Kristina","verde","misión"],"cls":"card"},
+{"id":"S2KRIS23","t":"🎬 T2E23 · Red Sky in the Morning","type":"episode","x":520,"y":1450,"meta":"Kristina intenta contactar a RJ; desaparece bajo protección de Van Pelt; Jane se encuentra con RJ y escucha The Tyger.","tags":["Kristina","The Tyger","negro/lila"],"cls":"card"},
+{"id":"S3BER","t":"🎬 T3E1 · Red Sky at Night","type":"episode","x":1240,"y":1450,"meta":"Bertram entra como nuevo director; caso Harvey Dublin; choque de poder con Jane y el ratón muerto.","tags":["Bertram","ratón"],"cls":"card"},
+{"id":"S3KRIS3","t":"🎬 T3E3 · The Blood on His Hands","type":"episode","x":760,"y":1450,"meta":"Kristina reaparece en una paleta más oscura; vuelve a quedar ligada a las lecturas sobre RJ y misión/salvación.","tags":["Kristina","negro"],"cls":"card"},
+{"id":"S3FIRE","t":"🎬 T3E8 · Ball of Fire","type":"episode","x":1000,"y":1450,"meta":"Jane es secuestrado; Hightower interviene intensamente para recuperarlo; Wagner reaparece diciendo tener información.","tags":["Hightower","Wagner"],"cls":"card"},
+{"id":"S3TODD","t":"🎬 T3E9 · Todd Johnson","type":"episode","x":1240,"y":1260,"meta":"Todd Johnson muere quemado; aparece el encendedor verde y nace la lectura verde → muerte.","tags":["verde","fuego"],"cls":"card"},
+{"id":"S3E10LIGHT","t":"🎬 T3E10 · Green lighter / Tiger tiger","type":"episode","x":1450,"y":1260,"meta":"Se discute el encendedor verde y ‘Tiger, tiger’; Hightower viste rojo + azul; Minelli aparece pescando; Van Pelt va en púrpura.","tags":["verde","rojo/azul","púrpura"],"cls":"card"},
+{"id":"S3E11BEACH","t":"🎬 T3E11 · Playa Minelli–Jane","type":"episode","x":1660,"y":1260,"meta":"Jane se encuentra con Minelli junto al mar; composición azul del mar + naranja de la arena; Van Pelt viste rojo.","tags":["Minelli","azul/naranja","contraejemplo"],"cls":"card"},
+{"id":"S3E13BER","t":"🎬 T3E13 · Red Alert","type":"episode","x":1870,"y":1260,"meta":"Bertram supervisa, pide actualizaciones y lleva a Van Pelt a tomar café; lectura de tensión interna del equipo.","tags":["Bertram","Van Pelt"],"cls":"card"},
+{"id":"S3E23ROOM","t":"🎬 T3E23 · Habitación verde / Max James","type":"episode","x":2010,"y":900,"meta":"Habitación con paredes verdes; foto de Hightower en rojo/fucsia sobre entorno verde; Bertram mata a alguien que buscaba listas.","tags":["verde","Bertram","Hightower"],"cls":"card"},
+{"id":"S3E23BER","t":"🎬 T3E23 · Bertram pregunta ‘¿dijo algo?’","type":"episode","x":2010,"y":1080,"meta":"Tras la muerte, Bertram pregunta inmediatamente si la persona alcanzó a contar algo; sus miradas parecen extrañas a Javi.","tags":["Bertram","sospecha"],"cls":"card"},
+{"id":"S3E24REST","t":"🎬 T3E24 · Restaurante rojo/verde","type":"episode","x":1780,"y":900,"meta":"Escena saturada de rojo; Van Pelt aparece verde; lectura de posible presión sobre Bertram y ambiente de amenaza.","tags":["rojo","verde","Bertram"],"cls":"card"},
+{"id":"S3E24LIST","t":"🎬 T3E24 · Lista de sospechosos","type":"episode","x":1580,"y":1080,"meta":"Aparecen varios posibles responsables del caso; Van Pelt y reportera van en verde; el hombre de corbata rayada destaca por rojo/azul.","tags":["verde","rojo/azul"],"cls":"card"},
+{"id":"S3E24PHONE","t":"🎬 T3E24 · Llamada desde teléfono de O’Laughlin","type":"episode","x":1740,"y":1080,"meta":"Lisbon llama al teléfono de O’Laughlin y responde Timothy Carter, hombre de gafas amarillas y camisa verde.","tags":["Carter","O’Laughlin","verde/amarillo"],"cls":"card"},
+{"id":"S3E24CARTER","t":"🎬 T3E24 · Carter afirma ser RJ","type":"episode","x":1900,"y":1080,"meta":"Carter dice ser Red John; aparece como posible imitador/instrumento dentro de la teoría de red.","tags":["Carter","imitador","RJ"],"cls":"card"},
+{"id":"S3E24FINAL","t":"🎬 T3E24 · Confrontación final","type":"episode","x":1920,"y":1240,"meta":"Mucho verde; una persona de azul se queda cubriéndose; carrito rojo como ‘pop’; hombre completamente rojo pasa al llegar seguridad.","tags":["verde","azul","rojo"],"cls":"card"},
+{"id":"VANRED","t":"🎨 Van Pelt · T3E11 roja","type":"hyp","x":520,"y":1160,"meta":"Contraejemplo: rojo en Van Pelt no produce una conexión RJ evidente; debilita la lectura literal del color.","tags":["rojo","contraejemplo"],"cls":"card"},
+{"id":"VANPURP","t":"🎨 Van Pelt · T3E10 púrpura","type":"hyp","x":330,"y":1260,"meta":"Púrpura intenso; puede leerse como mezcla/intersección rojo + azul, pero también como código emocional de su personaje.","tags":["púrpura","Van Pelt"],"cls":"card"},
+{"id":"VANGREEN","t":"🎨 Van Pelt · T3E24 verde","type":"hyp","x":560,"y":1340,"meta":"Verde junto a reportera y ambiente; apoya la idea de que el color puede ser ambiental/narrativo y no pertenencia literal.","tags":["verde","Van Pelt"],"cls":"card"},
+{"id":"KRISWHITE","t":"🎨 Kristina · cream/blanco + negro + verde","type":"hyp","x":90,"y":1420,"meta":"T2E22: combinación visual que conecta a Kristina con neutralidad/contraste y el sistema verde en observación.","tags":["Kristina","verde","blanco"],"cls":"card"},
+{"id":"KRISLILAC","t":"🎨 Kristina · lila/lavanda + negro","type":"hyp","x":720,"y":1370,"meta":"T2E23 TV: lila/lavanda con negro; en otra escena aparece negro + accesorio verde/turquesa.","tags":["Kristina","lila","verde"],"cls":"card"},
+{"id":"KRISDARK","t":"🎨 Kristina · paleta oscura","type":"hyp","x":900,"y":1370,"meta":"T3E3: reaparece con estética más negra/oscura, reforzando el cambio visual alrededor de su personaje.","tags":["Kristina","negro"],"cls":"card"},
+{"id":"KRISCONTACT","t":"🧩 Kristina · contacto con RJ","type":"hyp","x":300,"y":1340,"meta":"Hipótesis sostenida: Kristina deliberadamente entra en la cabeza de Jane, intenta contactar a RJ y podría estar cumpliendo una misión.","tags":["Kristina","RJ","misión"],"cls":"card"},
+{"id":"MINBEACH","t":"🧩 Minelli · autoridad + permisividad","type":"hyp","x":600,"y":420,"meta":"Desde T1: autoridad sobre Jane y el caso, pero una permisividad que a Javi le pareció inusual.","tags":["Minelli","T1"],"cls":"card"},
+{"id":"MINRETIRE","t":"🧩 Minelli · retiro como contraargumento","type":"hyp","x":820,"y":420,"meta":"Su retiro/desaparición debilitó temporalmente la teoría; su regreso elimina ese contraargumento dentro del tablero.","tags":["Minelli","contraargumento"],"cls":"card"},
+{"id":"BERTBEIGE","t":"🎨 Bertram · beige/tierra","type":"hyp","x":1460,"y":400,"meta":"Paleta institucional beige/marrón/verdosa observada; se registra como código visual aún sin significado fijado.","tags":["Bertram","beige","abierta"],"cls":"card"},
+{"id":"BERTTIES","t":"👔 Bertram · corbatas/símbolos","type":"hyp","x":1510,"y":540,"meta":"La variedad de corbatas y detalles gráficos llamó la atención; se conserva como asociación visual sin asignarle significado definitivo.","tags":["Bertram","visual","abierta"],"cls":"card"},
+{"id":"OLAALL","t":"🧩 O’Laughlin · posible aliado de RJ","type":"hyp","x":1560,"y":700,"meta":"Teoría persistente y separada de la hipótesis de que sea asesino del caso T3E24.","tags":["O’Laughlin","RJ"],"cls":"card"},
+{"id":"VANINNOC","t":"👧 Van Pelt · inocencia","type":"hyp","x":270,"y":1080,"meta":"Lectura de Van Pelt como ‘inocencia de un niño’: su variedad cromática puede funcionar emocionalmente sin codificar bandos.","tags":["Van Pelt","inocencia"],"cls":"card"}
 ],
  edges:[
 ['MIN','RJ','dashed','Teoría central: Minelli como candidato a RJ'],['KRIS','RJ','dashed','Posible conexión directa con RJ'],['BER','RJ','dashed','Posible aliado / posible presión'],['OLA','RJ','dashed','Posible aliado de RJ'],['FBI','VAN','dashed','Posible conexión alrededor de Van Pelt'],['VAN','INNO','solid','Variedad cromática como función de inocencia'],['BER','THREAT','dashed','Bertram podría estar bajo presión'],['ROJO','RJ','dotted'],['AZUL','RJ','dotted'],['ROJO','AZUL','dotted'],['VERDE','RJ','dotted'],['PURP','ROJO','dotted'],['PURP','AZUL','dotted'],['ORANGE','AZUL','dotted'],['MOUSE','BER','solid'],['TIGER','RJ','dotted'],['ROPE','OLA','solid'],['E10','MIN','solid','Minelli reaparece en T3E10'],['E10','VERDE','solid'],['E11','MIN','solid','Encuentro Minelli–Jane en la playa'],['E11','ORANGE','solid'],['E23','BER','solid','Bertram queda ligado a la escena T3E23'],['E23','VERDE','solid'],['E24','TIM','solid','Carter aparece y afirma ser RJ'],['E24','OLA','solid','O’Laughlin queda conectado al teléfono/caso'],['E24','ROJO','solid'],['E24','AZUL','solid'],['E24','VERDE','solid'],['T1','MIN','solid'],['VAN','ROJO','contradiction','Contraejemplo: Van Pelt roja sin vínculo RJ aparente'],
@@ -168,7 +214,84 @@ const data={
 ['KMISSION','KRIS','dashed'],['MINCREATOR','MIN','dashed'],['MINCREATOR','TIGER','dotted'],['REBECCA','GREENSAVED','dashed'],['GREENMED','VERDE','solid'],['GREENDEATH','VERDE','contradiction'],['GREENSAVED','VERDE','dotted'],
 ['PURPLEBRIDGE','PURP','solid'],['REDJANE','ROJO','solid'],['REDJANE','AZUL','solid'],['JANEBLUE','AZUL','solid'],['REDRJ','ROJO','solid'],['ORANGEBLUE','ORANGE','solid'],['COLORCOUNTER','VAN','solid'],['COLORCOUNTER','REDRJ','contradiction'],
 ['PLANE','T1','solid'],['PLANE','RJ','dashed'],['RJSMOKE','PLANE','solid'],['LIGHTER','TODD','solid'],['LIGHTER','VERDE','dotted'],['WAGNER','WAGNERIMP','solid'],['WAGNERIMP','WAGNER','dashed'],
-['HIGHTOY','HIG','solid'],['HIGDISCARD','HIG','contradiction','Revisión que debilitó la teoría'],['OLA_KILLER','OLA','solid','Hipótesis separada: asesino del caso T3E24'],['TIMACTOR','TIM','dashed','¿Actor/imitador contratado?'],['REDSWEATER','ROJO','dotted'],['REDBLUEEXTRAS','ROJO','dotted'],['REDBLUEEXTRAS','AZUL','dotted'],['GREENROOM','VERDE','solid'],['HIGPHOTO','HIG','solid'],['HIGPHOTO','VERDE','dotted'],['HIGPHOTO','ROJO','dotted'],['BLUECUP','AZUL','solid'],['GREENFINAL','VERDE','solid'],['BLUESTAY','AZUL','solid'],['REDCART','ROJO','solid']
+['HIGHTOY','HIG','solid'],['HIGDISCARD','HIG','contradiction','Revisión que debilitó la teoría'],['OLA_KILLER','OLA','solid','Hipótesis separada: asesino del caso T3E24'],['TIMACTOR','TIM','dashed','¿Actor/imitador contratado?'],['REDSWEATER','ROJO','dotted'],['REDBLUEEXTRAS','ROJO','dotted'],['REDBLUEEXTRAS','AZUL','dotted'],['GREENROOM','VERDE','solid'],['HIGPHOTO','HIG','solid'],['HIGPHOTO','VERDE','dotted'],['HIGPHOTO','ROJO','dotted'],['BLUECUP','AZUL','solid'],['GREENFINAL','VERDE','solid'],['BLUESTAY','AZUL','solid'],['REDCART','ROJO','solid'],
+["S1PILOT","RJ","solid","Origen: provocación pública, asesinato de familia y smiley"],
+["S1PILOT","SMILE","solid","Jane queda bajo el smiley"],
+["S1JARED","RJ","solid","RJ llega antes y Jared muere"],
+["S1JARED","GREENDEATH","contradiction","Muerte sin verde"],
+["S1FOOT","RJ","solid","Dumar/Harry Hardy queda ligado a RJ"],
+["S1FOOT","PLANE","solid","Smiley en el cielo mediante avión"],
+["S1FOOT","RJSMOKE","solid","Instrumento visual del smiley"],
+["S2BOSCO","MIN","solid","Minelli retira a Jane/Lisbon del caso RJ"],
+["S2REBECCA","REBECCA","solid","Rebecca participa en operación ligada a RJ"],
+["S2REBECCA","GREENMED","dashed","Origen de la teoría verde como medio/intermediario"],
+["S2KRIS22","KRIS","solid","Kristina reaparece y ayuda en el caso"],
+["S2KRIS22","KRISWHITE","solid","Cream/blanco + negro + verde"],
+["S2KRIS23","KRIS","solid","Kristina intenta contactar a RJ y desaparece"],
+["S2KRIS23","TIGER","solid","Jane escucha The Tyger"],
+["S2KRIS23","KRISLILAC","solid","Lila/lavanda + negro"],
+["S3BER","BER","solid","Bertram entra como nuevo director"],
+["S3BER","MOUSE","solid","Ratón muerto: juego de poder"],
+["S3KRIS3","KRIS","solid","Kristina reaparece en paleta oscura"],
+["S3KRIS3","KMISSION","dashed","Misión/salvación como lectura"],
+["S3FIRE","HIG","solid","Hightower interviene en rescate"],
+["S3FIRE","WAGNER","solid","Wagner reaparece con información"],
+["S3TODD","TODD","solid","Todd muere quemado"],
+["S3TODD","LIGHTER","solid","Encendedor verde"],
+["S3TODD","GREENDEATH","solid","Alimenta teoría verde = muerte"],
+["S3E10LIGHT","LIGHTER","solid","Encendedor verde discutido"],
+["S3E10LIGHT","MIN","solid","Minelli aparece pescando"],
+["S3E10LIGHT","HIG","solid","Hightower rojo + azul"],
+["S3E10LIGHT","VANPURP","solid","Van Pelt púrpura"],
+["S3E11BEACH","MIN","solid","Encuentro Jane–Minelli"],
+["S3E11BEACH","ORANGE","dotted","Arena naranja / mar azul"],
+["S3E11BEACH","VANRED","solid","Van Pelt roja como contraejemplo"],
+["S3E13BER","BER","solid","Bertram supervisa y lleva a Van Pelt por café"],
+["S3E13BER","VAN","solid","Van Pelt queda dentro de la escena institucional"],
+["S3E23ROOM","GREENROOM","solid","Habitación con paredes verdes"],
+["S3E23ROOM","HIGPHOTO","solid","Foto de Hightower rojo/fucsia sobre verde"],
+["S3E23ROOM","BER","solid","Bertram ligado a la escena"],
+["S3E23BER","BER","solid","Pregunta inmediatamente si la víctima dijo algo"],
+["S3E23BER","THREAT","dashed","Lectura de posible presión/amenaza"],
+["S3E24REST","BER","dashed","Lectura de presión sobre Bertram"],
+["S3E24REST","VAN","solid","Van Pelt aparece verde"],
+["S3E24REST","ROJO","solid","Ambiente intensamente rojo"],
+["S3E24LIST","VAN","solid","Van Pelt en verde"],
+["S3E24LIST","OLA","dashed","O’Laughlin en la lista / corbata rayada"],
+["S3E24LIST","REDBLUEEXTRAS","dotted","Abundancia de rojo/azul"],
+["S3E24PHONE","OLA","solid","Teléfono de O’Laughlin"],
+["S3E24PHONE","TIM","solid","Carter responde"],
+["S3E24PHONE","VANGREEN","dotted","Carter verde / Van Pelt verde"],
+["S3E24CARTER","TIM","solid","Afirma ser RJ"],
+["S3E24CARTER","TIMACTOR","dashed","Hipótesis actor/imitador"],
+["S3E24FINAL","GREENFINAL","solid","Verde dominante"],
+["S3E24FINAL","BLUESTAY","solid","Persona azul permanece"],
+["S3E24FINAL","REDCART","solid","Carrito rojo como pop"],
+["S3E24FINAL","REDSWEATER","solid","Hombre completamente rojo"],
+["VANRED","VAN","solid","Observación cromática"],
+["VANRED","COLORCOUNTER","solid","Contraejemplo al color literal"],
+["VANPURP","VAN","solid","Observación cromática"],
+["VANPURP","PURPLEBRIDGE","dashed","Púrpura como posible puente"],
+["VANGREEN","VAN","solid","Observación cromática"],
+["VANGREEN","GREENMED","dotted","Verde como medio/desenlace"],
+["KRISWHITE","KRIS","solid","Observación cromática"],
+["KRISWHITE","VERDE","dotted","Conexión visual verde"],
+["KRISLILAC","KRIS","solid","Observación cromática"],
+["KRISLILAC","PURP","dotted","Lila/púrpura"],
+["KRISLILAC","VERDE","dotted","Accesorio verde/turquesa"],
+["KRISDARK","KRIS","solid","Cambio de paleta"],
+["KRISCONTACT","KRIS","solid","Hipótesis de conexión/misión"],
+["KRISCONTACT","RJ","dashed","Posible vínculo con RJ"],
+["MINBEACH","MIN","solid","Origen de sospecha desde T1"],
+["MINBEACH","DIRECTOR","dotted","Continuidad con teoría temprana de autoridad"],
+["MINRETIRE","MIN","solid","Contraargumento temporal"],
+["MINRETIRE","MINCREATOR","dashed","Teoría principal sobre Minelli"],
+["BERTBEIGE","BER","solid","Paleta institucional"],
+["BERTTIES","BER","dotted","Detalles visuales no resueltos"],
+["OLAALL","OLA","solid","Teoría persistente de aliado RJ"],
+["OLAALL","RJ","dashed","Posible relación"],
+["VANINNOC","VAN","solid","Lectura de inocencia"],
+["VANINNOC","INNO","solid","Desarrollo de hipótesis"]
 ]};
 const layers=['person','hyp','color','symbol','episode']; let active=new Set(layers), scale=1, ox=-350, oy=-160, dragging=false,last={x:0,y:0};
 const $=id=>document.getElementById(id), nodesEl=$('nodes'), edgesEl=$('edges'), world=$('world'), board=$('board');
